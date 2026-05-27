@@ -42,6 +42,15 @@ The checklist includes:
 
 ---
 
+## Case Studies
+
+This repository includes case studies that document Reverse Learning in action.
+
+- [Case studies](./case-studies/)
+- [RLF Checklist v1.0 Multi-Agent Workflow Case Study](./case-studies/RLF-CaseStudy-Checklist-v1.0-MultiAgentWorkflow-v0.1.md)
+
+---
+
 ## Seven Stages of Reverse Learning
 
 1. AI-Generated Artifact
