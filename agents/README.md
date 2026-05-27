@@ -150,9 +150,3 @@ Everything else is observed by reading `state.json` (one screen) or the PR conve
 - Add **Student-Persona Critic**: reads outputs as a learner unfamiliar with RLF, scores accessibility.
 - Add **Citation Agent**: cross-references claims against the TechTrends manuscript bibliography.
 - Add **Translator QA**: round-trip translation check on Brunch ↔ LinkedIn content.
-
----
-
-## Automation
-
-See **[agents/AUTOMATION.md](./AUTOMATION.md)** for GitHub Actions setup (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) and one-push-one-agent workflow. Manual steps remain in **[agents/RUNBOOK.md](./RUNBOOK.md)**.
