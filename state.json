@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "pipeline_id": "rlf-log-verification-v1",
+  "artifact_type": "guide",
+  "current_stage": "kickoff",
+  "target_version": "v1.0",
+  "iteration": 0,
+  "iteration_max": 3,
+  "score_threshold": 90,
+  "latest_draft": null,
+  "latest_review": null,
+  "latest_final": null,
+  "latest_verification": null,
+  "latest_total_score": null,
+  "escalation_reason": null,
+  "failure_log": [],
+  "history": [
+    {
+      "at_utc": "2026-05-27T04:30:00Z",
+      "from_stage": null,
+      "to_stage": "kickoff",
+      "reason": "Second RLF release: RLF-Log-Verification-v1.0 brief approved; feature branch opened.",
+      "actor": "human",
+      "rule_applied": null
+    }
+  ],
+  "human_gates": {
+    "pr_url": "",
+    "approved": false,
+    "approved_at_utc": null,
+    "approved_by": null,
+    "publish_authorized": false
+  },
+  "config": {
+    "drafter_model_intent": "gpt-5",
+    "critic_model_intent": "claude-opus-4.7",
+    "reviser_model_intent": "gpt-5",
+    "finalist_model_intent": "claude-opus-4.7",
+    "verifier_model_intent": "gpt-5",
+    "publisher_model_intent": "claude-opus-4.7"
+  }
+}
