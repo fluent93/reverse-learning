@@ -19,7 +19,63 @@
       "at_utc": "2026-05-27T04:30:00Z",
       "from_stage": null,
       "to_stage": "kickoff",
-      "reason": "Second RLF release: RLF-Log-Verification-v1.0 brief approved; feature branch opened.",
+      "reason": "2번째 RLF 산출물 프로젝트 확정. 브리프 승인, feature 브랜치 생성.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T05:00:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "멀티에이전트 파이프라인 설계 논의 완료. Single vs Multi-agent 비교 후 Orchestrator 1개 + 역할별 서브에이전트 6개 구조 확정.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T05:30:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "agents/ 폴더 스캐폴드 완료. 00_orchestrator ~ 06_publisher 시스템 프롬프트, rubrics/rlf-core-rubric.md, schema 3종 커밋. PR #4 merge.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T06:00:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "agents/RUNBOOK.md, briefs/_template.md, briefs/example-student-checklist.md, state.json.template 커밋. PR #5 merge.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T06:30:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "API 기반 GitHub Actions 자동화 코드 추가 후 환경 제약(API 없음) 이유로 전량 revert 및 브랜치 삭제. RUNBOOK 수동 방식으로 복귀.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T06:45:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "RLF-Log-Verification-v1.0 프로젝트 정의 확정. 포지션: Checklist v1.0 Part 3 실행·증거 도구. briefs/rlf-log-verification-v1.md 작성 완료.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T07:00:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "RLF-Pipeline-WorkflowGuide-v1.0.md 한글 작업 가이드 작성 완료. Step 1~12 상세, state.json 업데이트 방법 포함. main 브랜치 커밋.",
+      "actor": "human",
+      "rule_applied": null
+    },
+    {
+      "at_utc": "2026-05-27T06:45:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "kickoff",
+      "reason": "실제 drafting 작업은 추후 진행 예정. 현재 상태: 브리프 완료, 브랜치 준비, 가이드 문서 완료. 다음 단계: Step 4 (Drafter, ChatGPT).",
       "actor": "human",
       "rule_applied": null
     }
