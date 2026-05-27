@@ -65,7 +65,7 @@ The workflow was a **human-orchestrated, multi-agent manual pipeline**—not a f
 
 | Environment | Primary AI | Functions |
 |---|---|---|
-| **ChatGPT / GPT-based** | GPT-5.5 | Drafting, revision, verification support, conceptual refinement, bilingual writing |
+| **ChatGPT / GPT-based** | ChatGPT-5.5 | Drafting, revision, verification support, conceptual refinement, bilingual writing |
 | **Cursor / Claude-based** | Claude Opus 4.7 | Critique, finalization, verification review, publication support |
 
 This two-environment structure was not arbitrary. It introduced a **Generator–Critic separation** that reduced self-confirmation bias: the AI system that drafted content was not the same system that evaluated it. This separation mirrors a principle later formalized in the project's multi-agent pipeline design, where drafting agents (GPT) and critic agents (Claude) are deliberately assigned to different model families.
