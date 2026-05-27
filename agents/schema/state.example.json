@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "pipeline_id": "student-checklist-v1",
+  "artifact_type": "checklist",
+  "current_stage": "critiquing",
+  "target_version": "v1.0",
+  "iteration": 1,
+  "iteration_max": 3,
+  "score_threshold": 90,
+  "latest_draft": "drafts/v2.md",
+  "latest_review": "reviews/v1-review.json",
+  "latest_final": null,
+  "latest_verification": null,
+  "latest_total_score": 82,
+  "escalation_reason": null,
+  "failure_log": [],
+  "history": [
+    {
+      "at_utc": "2026-05-27T01:10:00Z",
+      "from_stage": "kickoff",
+      "to_stage": "drafting",
+      "reason": "Rule 1 — no drafts exist; routing to Drafter.",
+      "actor": "orchestrator",
+      "rule_applied": 1
+    },
+    {
+      "at_utc": "2026-05-27T01:35:00Z",
+      "from_stage": "drafting",
+      "to_stage": "critiquing",
+      "reason": "Rule 2 — drafts/v1.md created without a paired review.",
+      "actor": "orchestrator",
+      "rule_applied": 2
+    },
+    {
+      "at_utc": "2026-05-27T02:05:00Z",
+      "from_stage": "critiquing",
+      "to_stage": "revising",
+      "reason": "Rule 3 — total_score 82 < threshold 90 and iteration 0 < iteration_max 3.",
+      "actor": "orchestrator",
+      "rule_applied": 3
+    },
+    {
+      "at_utc": "2026-05-27T02:30:00Z",
+      "from_stage": "revising",
+      "to_stage": "critiquing",
+      "reason": "Rule 2 — drafts/v2.md created; new Critic pass needed.",
+      "actor": "orchestrator",
+      "rule_applied": 2
+    }
+  ],
+  "human_gates": {
+    "pr_url": "https://github.com/fluent93/reverse-learning/pull/PLACEHOLDER",
+    "approved": false,
+    "approved_at_utc": null,
+    "approved_by": null,
+    "publish_authorized": false
+  },
+  "config": {
+    "drafter_model_intent": "gpt-5",
+    "critic_model_intent": "claude-opus-4.7",
+    "reviser_model_intent": "gpt-5",
+    "finalist_model_intent": "claude-opus-4.7",
+    "verifier_model_intent": "gpt-5",
+    "publisher_model_intent": "claude-opus-4.7"
+  }
+}

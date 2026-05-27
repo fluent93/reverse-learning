@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fluent93/reverse-learning/agents/schema/state.schema.json",
+  "title": "RLF Pipeline State",
+  "description": "Canonical state file for the RLF multi-agent pipeline. Lives at the repo root as state.json. Read and written ONLY by the Orchestrator (Agent 00). Other agents read it but never write it.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "current_stage",
+    "target_version",
+    "iteration",
+    "iteration_max",
+    "score_threshold",
+    "history"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of this state schema. Bump only with a dedicated PR."
+    },
+    "pipeline_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Short kebab-case ID for this artifact's pipeline run (e.g., 'student-checklist-v1', 'tt-paper-revision-2026-05')."
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "paper",
+        "checklist",
+        "rubric",
+        "guide",
+        "one_pager",
+        "blog_source",
+        "education"
+      ],
+      "description": "What kind of artifact is being produced. Drives Critic rubric weighting."
+    },
+    "current_stage": {
+      "type": "string",
+      "enum": [
+        "kickoff",
+        "drafting",
+        "critiquing",
+        "revising",
+        "finalizing",
+        "verifying",
+        "remediation",
+        "awaiting_human_approval",
+        "publishing",
+        "done"
+      ],
+      "description": "Where the pipeline currently is. Updated by Orchestrator after each routing decision."
+    },
+    "target_version": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+      "description": "Public-facing semver of the artifact being produced (e.g., 'v1.1' or 'v2.0.0'). Not the iteration number."
+    },
+    "iteration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "How many Critic↔Reviser cycles have completed for the current target_version."
+    },
+    "iteration_max": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 3,
+      "description": "Hard cap on Critic↔Reviser cycles. Reaching this triggers Finalist with escalation_reason='iter_max'."
+    },
+    "score_threshold": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 90,
+      "description": "Minimum Critic total_score required to skip the Reviser loop. Default 90."
+    },
+    "latest_draft": {
+      "type": "string",
+      "pattern": "^drafts/v[0-9]+\\.md$",
+      "description": "Path to the most recent draft file."
+    },
+    "latest_review": {
+      "type": "string",
+      "pattern": "^reviews/v[0-9]+-review\\.json$",
+      "description": "Path to the most recent Critic JSON output."
+    },
+    "latest_final": {
+      "type": "string",
+      "pattern": "^final/v[0-9]+\\.[0-9]+(\\.[0-9]+)?\\.md$",
+      "description": "Path to the most recent Finalist output."
+    },
+    "latest_verification": {
+      "type": "string",
+      "pattern": "^verification/v[0-9]+\\.[0-9]+(\\.[0-9]+)?-check(-[0-9]+)?\\.md$",
+      "description": "Path to the most recent Verifier report."
+    },
+    "latest_total_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Most recent Critic total_score. Set ONLY by Orchestrator after reading the Critic's review.json."
+    },
+    "escalation_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "iter_max",
+        "verifier_fail",
+        "canon_conflict",
+        "human_override"
+      ],
+      "description": "Why the pipeline took an exceptional path, if any."
+    },
+    "failure_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "at_utc",
+          "stage",
+          "summary"
+        ],
+        "properties": {
+          "at_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "evidence_ref": {
+            "type": "string",
+            "description": "Path to a file or PR comment evidencing the failure."
+          }
+        }
+      },
+      "description": "Append-only list of failures captured during the run. Used for post-mortem and rubric calibration."
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "at_utc",
+          "from_stage",
+          "to_stage",
+          "reason",
+          "actor"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "at_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "from_stage": {
+            "type": "string"
+          },
+          "to_stage": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "description": "One-sentence justification citing an Orchestrator rule number where applicable."
+          },
+          "actor": {
+            "type": "string",
+            "enum": [
+              "orchestrator",
+              "human"
+            ]
+          },
+          "rule_applied": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      },
+      "description": "Append-only routing audit trail."
+    },
+    "human_gates": {
+      "type": "object",
+      "description": "Tracks human approval gates. Set by Orchestrator based on PR events.",
+      "additionalProperties": false,
+      "properties": {
+        "pr_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "approved": {
+          "type": "boolean",
+          "default": false
+        },
+        "approved_at_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "approved_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "publish_authorized": {
+          "type": "boolean",
+          "default": false,
+          "description": "Separate gate: even after PR approval, the human must explicitly authorize the Publisher run (post a comment like '/rlf publish' on the PR)."
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "description": "Per-pipeline overrides. Optional.",
+      "additionalProperties": false,
+      "properties": {
+        "drafter_model_intent": {
+          "type": "string"
+        },
+        "critic_model_intent": {
+          "type": "string"
+        },
+        "reviser_model_intent": {
+          "type": "string"
+        },
+        "finalist_model_intent": {
+          "type": "string"
+        },
+        "verifier_model_intent": {
+          "type": "string"
+        },
+        "publisher_model_intent": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
